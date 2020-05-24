@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">桌面固定捷徑示範</string>
+    <string name="shortcutCreated">捷徑已存在</string>
+    <string name="shortcut">桌面捷徑</string>
+    <string name="createShortcut">建立捷徑</string>
+    <string name="shortcutId">shortcutId</string>
+    <string name="openShortcut">開啟捷徑</string>
+</resources>
