@@ -83,7 +83,7 @@ android 8.0 以下不支援『拖移』建立捷徑，因此以 sendBroadcast �
 ```
 開啟捷徑後，拿取先前 putExtra 予 intent 的 id ，並處理對應的行為
            
-# 完整 Code
+# Code
 
 ```
   public class ShortcutHelper {
