@@ -40,5 +40,19 @@
    
 ```
 
-setAction com.android.launcher.action.INSTALL_SHORTCUT 表示安裝捷徑，建立 shortcutInfoIntent putExtra value 用於開啟捷徑時，識別開啟哪個捷徑。接著設定捷徑圖示、名字跟shortcutInfoIntent
+setAction com.android.launcher.action.INSTALL_SHORTCUT 表示安裝捷徑，建立 shortcutInfoIntent putExtra id 用於識別是哪個捷徑。接著設定捷徑圖示、名字跟 shortcutInfoIntent，最後送出安裝要求。
+
+```
+  boolean isRepeat = false;
+  for (ShortcutInfo shortcutInfo : shortcutManager.getPinnedShortcuts()) {
+          if (shortcutInfo.getId().equals(id)) {
+                 isRepeat = true;
+                 break;
+          }
+   }
+```
+為了避免重複建立捷徑，從 getPinnedShortcuts 尋找已經建立的捷徑，如果有找到就不再建立
+
+
+
 
