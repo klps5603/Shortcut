@@ -8,7 +8,13 @@
 
 # 使用
 
-在 sdk version 8.0 以上，google 提供 ShortcutManager 讓我們可以『拖移』捷徑到桌面任何想要的位置。
+```
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+```
+
+首先先到 AndroidManifest 加上建立捷徑與刪除捷徑的權限
+
 
 ```
    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -34,4 +40,5 @@
    }
    
 ```
-setAction com.android.launcher.action.INSTALL_SHORTCUT 表示要安裝捷徑
+setAction com.android.launcher.action.INSTALL_SHORTCUT 表示安裝捷徑
+建立 shortcutInfoIntent 決定開啟捷徑要做的事，像是 設定捷徑的圖示、名字，特別的
