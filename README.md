@@ -7,18 +7,14 @@
 ![image](https://github.com/klps5603/Shortcut/blob/master/app/src/main/res/drawable/%E5%9B%BA%E5%AE%9A%E6%8D%B7%E5%BE%91%E6%88%AA%E5%9C%96.png)
 
 # 使用
+
 在 sdk version 8.0 以上，google 提供 ShortcutManager 讓我們可以『拖移』捷徑到桌面任何想要的位置。
+
 ```
-   if (shortcutManager != null && shortcutManager.isRequestPinShortcutSupported()) {
-                boolean isRepeat = false;
-                for (ShortcutInfo shortcutInfo : shortcutManager.getPinnedShortcuts()) {
-                    if (shortcutInfo.getId().equals(id)) {
-                        isRepeat = true;
-                        break;
-                    }
-                }
-                if (!isRepeat) {
-                    Intent shortcutInfoIntent = new Intent(parent, MainActivity.class);
+   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+      ShortcutManager shortcutManager = parent.getSystemService(ShortcutManager.class);
+      if (shortcutManager != null && shortcutManager.isRequestPinShortcutSupported()) {
+               Intent shortcutInfoIntent = new Intent(parent, MainActivity.class);
                     shortcutInfoIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
                     shortcutInfoIntent.addCategory(Intent.CATEGORY_LAUNCHER);
                     shortcutInfoIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -32,11 +28,10 @@
                             shortcutInfoIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     shortcutManager.requestPinShortcut(shortcutInfo,
                             shortcutCallbackIntent.getIntentSender());
-                } else {
-                    Toast.makeText(parent, parent.getString(R.string.shortcutCreated),
-                            Toast.LENGTH_LONG).show();
-                }
-            } else {
+      } else {
                 Log.w("ShortcutManager", "RequestPinShortcut is unsupported");
-            }
+      }
+   }
+   
 ```
+setAction com.android.launcher.action.INSTALL_SHORTCUT 表示要安裝捷徑
