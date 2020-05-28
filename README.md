@@ -1,6 +1,5 @@
 # Shortcut
-這裡簡述如何建立桌面固定捷徑
-我們可以透過『拖移』的方式建立桌面捷徑。建立固定捷徑實際流程如以下兩張圖
+這裡簡述如何建立桌面固定捷徑，我們可以透過『拖移』的方式建立桌面捷徑。建立固定捷徑實際流程如以下兩張圖
 
 ![image](https://github.com/klps5603/Shortcut/blob/master/app/src/main/res/drawable/%E5%BB%BA%E7%AB%8B%E5%9B%BA%E5%AE%9A%E6%8D%B7%E5%BE%91%E6%88%AA%E5%9C%96.png)
 
@@ -41,5 +40,5 @@
    
 ```
 
-setAction com.android.launcher.action.INSTALL_SHORTCUT 表示安裝捷徑
-建立 shortcutInfoIntent putExtra value 用於開啟捷徑時，識別是開啟哪個捷徑
+setAction com.android.launcher.action.INSTALL_SHORTCUT 表示安裝捷徑，建立 shortcutInfoIntent putExtra value 用於開啟捷徑時，識別開啟哪個捷徑。接著設定捷徑圖示、名字跟shortcutInfoIntent
+
