@@ -41,4 +41,4 @@
    
 ```
 setAction com.android.launcher.action.INSTALL_SHORTCUT 表示安裝捷徑
-建立 shortcutInfoIntent 決定開啟捷徑要做的事，像是 設定捷徑的圖示、名字，特別的
+建立 shortcutInfoIntent putExtra value 用於開啟捷徑時，識別是開啟哪個捷徑
