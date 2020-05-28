@@ -15,7 +15,7 @@
 首先先到 AndroidManifest 加上建立捷徑與刪除捷徑的權限
 
 
-# 在 android 8.0 以上
+# 在 android 8.0 以上建立捷徑
 
 
 ```
@@ -46,20 +46,20 @@
 setAction com.android.launcher.action.INSTALL_SHORTCUT 表示安裝捷徑，建立 shortcutInfoIntent putExtra id 用於識別是哪個捷徑。接著設定捷徑圖示、名字跟 shortcutInfoIntent，最後送出安裝要求
 
 ```
-  boolean isRepeat = false;
-  for (ShortcutInfo shortcutInfo : shortcutManager.getPinnedShortcuts()) {
-          if (shortcutInfo.getId().equals(id)) {
-                 isRepeat = true;
-                 break;
-          }
-   }
+            boolean isRepeat = false;
+            for (ShortcutInfo shortcutInfo : shortcutManager.getPinnedShortcuts()) {
+                  if (shortcutInfo.getId().equals(id)) {
+                         isRepeat = true;
+                          break;
+                  }
+            }
 ```
 為了避免重複建立捷徑，從 getPinnedShortcuts 尋找已經建立的捷徑，如果有找到就不再建立
 
-# 在 android 8.0 以下
+# 在 android 8.0 以下建立捷徑
 
 ```
-  Intent shortcutInfoIntent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+            Intent shortcutInfoIntent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
             shortcutInfoIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
                     Intent.ShortcutIconResource.fromContext(parent, icon));
             shortcutInfoIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortLabel);
@@ -69,6 +69,18 @@ setAction com.android.launcher.action.INSTALL_SHORTCUT 表示安裝捷徑，建�
             shortcutInfoIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, addIntent);
             parent.sendBroadcast(shortcutInfoIntent);
 ```
-android 8.0 以下不支援『拖移』建立捷徑，因此以 sendBroadcast 來建立
+android 8.0 以下不支援『拖移』建立捷徑，因此以 sendBroadcast 來建立。但是這種建立捷徑的方式，目前還沒找到避免重複建立的方法。
+
+# 處理開啟捷徑
+
+```
+        if (intent != null) {
+            String shortcutId=intent.getStringExtra("shortcutId");
+            if (shortcutId != null && shortcutId.equals(getString(R.string.shortcut))) {
+                Toast.makeText(this, "開啟捷徑", Toast.LENGTH_SHORT).show();
+            }
+        }
+```
+開啟捷徑後，拿取先前 putExtra 予 intent 的 id ，並處理對應的行為
            
             
