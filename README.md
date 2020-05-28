@@ -5,7 +5,7 @@
 
 ![image](https://github.com/klps5603/Shortcut/blob/master/app/src/main/res/drawable/%E5%9B%BA%E5%AE%9A%E6%8D%B7%E5%BE%91%E6%88%AA%E5%9C%96.png)
 
-# 使用
+# 授權
 
 ```
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
@@ -13,6 +13,9 @@
 ```
 
 首先先到 AndroidManifest 加上建立捷徑與刪除捷徑的權限
+
+
+# 在 android 8.0 以上
 
 
 ```
@@ -40,7 +43,7 @@
    
 ```
 
-setAction com.android.launcher.action.INSTALL_SHORTCUT 表示安裝捷徑，建立 shortcutInfoIntent putExtra id 用於識別是哪個捷徑。接著設定捷徑圖示、名字跟 shortcutInfoIntent，最後送出安裝要求。
+setAction com.android.launcher.action.INSTALL_SHORTCUT 表示安裝捷徑，建立 shortcutInfoIntent putExtra id 用於識別是哪個捷徑。接著設定捷徑圖示、名字跟 shortcutInfoIntent，最後送出安裝要求
 
 ```
   boolean isRepeat = false;
@@ -53,6 +56,19 @@ setAction com.android.launcher.action.INSTALL_SHORTCUT 表示安裝捷徑，建�
 ```
 為了避免重複建立捷徑，從 getPinnedShortcuts 尋找已經建立的捷徑，如果有找到就不再建立
 
+# 在 android 8.0 以下
 
-
-
+```
+  Intent shortcutInfoIntent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+            shortcutInfoIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                    Intent.ShortcutIconResource.fromContext(parent, icon));
+            shortcutInfoIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortLabel);
+            Intent addIntent = new Intent(parent, MainActivity.class);
+            addIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            addIntent.putExtra("shortcutId", id);
+            shortcutInfoIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, addIntent);
+            parent.sendBroadcast(shortcutInfoIntent);
+```
+android 8.0 以下不支援『拖移』建立捷徑，因此以 sendBroadcast 來建立
+           
+            
